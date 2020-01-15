@@ -31,6 +31,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (rb.position.y < -1f)
         {
+            // End game if player falls off ground
             FindObjectOfType<GameManager>().EndGame();
         }
     }

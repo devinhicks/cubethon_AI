@@ -21,12 +21,13 @@ public class GameManager : MonoBehaviour
         {
             gameHasEnded = true;
             Debug.Log("GAME OVER");
-            Invoke("Restart", restartDelay);
+            Invoke("Restart", restartDelay); // Restart after specfied delay
         }
     }
 
     void Restart ()
     {
+        // if player does not end game, restart the current scene/level
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
