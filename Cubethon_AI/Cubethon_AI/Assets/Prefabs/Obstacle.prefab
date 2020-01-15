@@ -123,4 +123,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 5
+  seekOrFlee: 0
   target: {fileID: 1936704718883762586, guid: 0771ac8a7f4564987b0c74807800fee3, type: 3}
+  searchRadius: 50
+  satisfactionRadius: 5
+  timeToTarget: 0.25

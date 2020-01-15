@@ -6,8 +6,11 @@ public class EndTrigger : MonoBehaviour
     public GameManager gameManager;
 
     // When player hits goal, level is complete
-    private void OnTriggerEnter()
+    private void OnTriggerEnter(Collider collider)
     {
-        gameManager.ComepleteLevel();
+        if (collider.gameObject.tag == "Player")
+        {
+            gameManager.ComepleteLevel();
+        }
     }
 }

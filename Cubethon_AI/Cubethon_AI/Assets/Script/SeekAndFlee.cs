@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
+// Script exhibiting the seek, flee, and arrive behaviors
+// applied to the cubethon obstacles!
+
 public class SeekAndFlee : MonoBehaviour
 {
     // Define steering variables
@@ -52,7 +55,6 @@ public class SeekAndFlee : MonoBehaviour
         // Check if target is in search radius
         if (result.velocity.magnitude > searchRadius)
         {
-            Debug.Log(this.name + ": Nothing to worry about here");
             return null;
         }
 
