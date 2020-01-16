@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class FollowPlayer : MonoBehaviour
 {
@@ -9,5 +10,10 @@ public class FollowPlayer : MonoBehaviour
     {
         // change position of camera to offset behind player
         transform.position = player.position + offset;
+
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            SceneManager.LoadScene("Menu");
+        }
     }
 }

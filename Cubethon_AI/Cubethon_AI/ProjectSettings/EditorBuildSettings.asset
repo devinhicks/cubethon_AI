@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Credits.unity
     guid: 992c9903a605b49a69ccb16f00605ee0
+  - enabled: 1
+    path: Assets/Scenes/Wander.unity
+    guid: caa093d7f24274245ae4d30daf4a7014
   m_configObjects: {}

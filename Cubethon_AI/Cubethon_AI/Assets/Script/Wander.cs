@@ -1,26 +1,21 @@
 ﻿using UnityEngine;
 
-// Define steering variables
-public class KinematicSteeringOutput
-{
-    public Vector3 velocity;
-    public Vector3 rotation;
-}
-
 public class Wander : MonoBehaviour
 {
-    public float maxSpeed = 1f;
+    public Vector3 lookHere;
+    public float maxSpeed = 3f;
     public float maxRotation = 15f; // limits degrees in which character can turn
     private int delay = 0;
 
     void Update()
     {
-        KinematicSteeringOutput newSteering = GetSteering();
-        transform.position += newSteering.velocity * Time.deltaTime;
+        //KinematicSteeringOutput newSteering = GetSteering();
+        transform.position += transform.TransformDirection(Vector3.forward)
+            * maxSpeed * Time.deltaTime;
 
         if (delay == 50)
         {
-            transform.eulerAngles += newSteering.rotation;
+            WanderAbout();
             delay = 0;
         }
         else
@@ -29,23 +24,14 @@ public class Wander : MonoBehaviour
         }
     }
 
-    public KinematicSteeringOutput GetSteering()
+    void WanderAbout()
     {
-        KinematicSteeringOutput result = new KinematicSteeringOutput();
+        float x = RandomBinomial() * maxRotation;
+        float z = RandomBinomial() * maxRotation;
 
-        float angle;
+        lookHere = new Vector3(x, 1.0f, z);
 
-        // Get velocity from vector form of the orientation
-        result.velocity = maxSpeed * transform.position;
-
-        // Change orientataion randomly
-        angle = RandomBinomial() * maxRotation;
-        angle *= Mathf.Rad2Deg;
-
-        result.rotation = new Vector3(Mathf.Sin(transform.eulerAngles.y), angle, 
-                                      Mathf.Cos(transform.eulerAngles.z));
-
-        return result;
+        transform.LookAt(lookHere);
     }
 
     float RandomBinomial()
@@ -53,16 +39,3 @@ public class Wander : MonoBehaviour
         return Random.Range(0.0f, 1.0f) - Random.Range(0.0f, 1.0f);
     }
 }
-
-
-/// speed
-/// vector3 for direction
-/// x and z floats
-/// start wander
-/// void wander
-///     random x and z values in certain range
-///     add to direction vector
-///     transform.LookAt(direction)
-/// update ()
-///     position += transform.TransformDirection * speed * time
-///     call wander after certain time or distance
