@@ -2,36 +2,36 @@
 
 public class Wander : MonoBehaviour
 {
-    public Vector3 lookHere;
+    public Vector3 lookHere; // point at which object will be facing
     public float maxSpeed = 3f;
     public float maxRotation = 15f; // limits degrees in which character can turn
     private int delay = 0;
 
     void Update()
     {
-        //KinematicSteeringOutput newSteering = GetSteering();
+        // update object's translation every frame
         transform.position += transform.TransformDirection(Vector3.forward)
             * maxSpeed * Time.deltaTime;
 
-        if (delay == 50)
+        if (delay == 50) // if 50 frames have passed,
         {
-            WanderAbout();
-            delay = 0;
+            WanderAbout(); // randomly choose new direction to move in
+            delay = 0;  // and reset
         }
         else
         {
-            delay++;
+            delay++; // otherwise increment the delay
         }
     }
 
     void WanderAbout()
     {
-        float x = RandomBinomial() * maxRotation;
-        float z = RandomBinomial() * maxRotation;
+        float x = RandomBinomial() * maxRotation; // choose random number
+        float z = RandomBinomial() * maxRotation; // for x and z values
 
-        lookHere = new Vector3(x, 1.0f, z);
+        lookHere = new Vector3(x, 1.0f, z); // add them to a vector
 
-        transform.LookAt(lookHere);
+        transform.LookAt(lookHere); // and have object look at that point
     }
 
     float RandomBinomial()
