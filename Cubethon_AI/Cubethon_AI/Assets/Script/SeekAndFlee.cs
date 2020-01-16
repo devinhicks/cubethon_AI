@@ -15,11 +15,10 @@ public class SeekAndFlee : MonoBehaviour
     public float maxSpeed = 10f; // maximum speed of character
     public bool seekOrFlee = false; // whether character is seeking or fleeing
 
-    public Transform target;
+    public Transform target; // Player transform
 
     // Arrive variables
     public float searchRadius = 50f; // outside of which the AI won't care
-    public float satisfactionRadius = 3f; // radius in which character is satisfied
     public float timeToTarget = 0.25f; // time to target constant
 
     void Update()
@@ -27,7 +26,7 @@ public class SeekAndFlee : MonoBehaviour
         // Get new velocity and rotation based on target position
         KinematicSteeringOutput newSteering = GetSteering();
 
-        // Apply steering
+        // Apply steering to velocity and rotation
         if (newSteering != null)
         {
             transform.position += newSteering.velocity * Time.deltaTime;
@@ -39,7 +38,8 @@ public class SeekAndFlee : MonoBehaviour
     {
         KinematicSteeringOutput result = new KinematicSteeringOutput();
 
-        float angle;
+        float angle; // Angle to determine the transform's orientation
+        float setSpeed = maxSpeed; // To change velocity as approaching target
 
         // Get the direction to (or away from) the target
         if (seekOrFlee == false) 
@@ -58,10 +58,18 @@ public class SeekAndFlee : MonoBehaviour
             return null;
         }
 
-        // Check if we're in satisfaction radius
-        if (result.velocity.magnitude < satisfactionRadius)
+        // Check if we're close enough to slow down
+        if (result.velocity.magnitude < 10)
         {
-            return null;
+            setSpeed /= 10;
+        }
+        else if (result.velocity.magnitude < 5)
+        {
+            setSpeed /= 5;
+        }
+        else
+        {
+            setSpeed = maxSpeed; // otherwise remain at maxSpeed
         }
 
         // Beat the clock!
@@ -69,7 +77,7 @@ public class SeekAndFlee : MonoBehaviour
 
         // Velocity is along this direction, at full speed
         result.velocity.Normalize();
-        result.velocity *= maxSpeed;
+        result.velocity *= setSpeed;
 
         // Get angle to set character to
         angle = NewOrientation(transform.eulerAngles.y, result.velocity);
