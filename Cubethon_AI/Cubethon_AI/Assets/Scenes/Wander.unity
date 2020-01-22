@@ -5475,8 +5475,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lookHere: {x: 0, y: 0, z: 0}
-  maxSpeed: 6
-  maxRotation: 2
+  maxSpeed: 3
+  maxRotation: 15
 --- !u!4 &1066911558 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1936704718883762586, guid: 0771ac8a7f4564987b0c74807800fee3,

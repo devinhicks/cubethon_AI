@@ -16,6 +16,7 @@ public class Wander : MonoBehaviour
         if (delay == 50) // if 50 frames have passed,
         {
             WanderAbout(); // randomly choose new direction to move in
+            this.transform.eulerAngles = lookHere * Time.deltaTime;
             delay = 0;  // and reset
         }
         else
@@ -26,12 +27,13 @@ public class Wander : MonoBehaviour
 
     void WanderAbout()
     {
-        float x = RandomBinomial() * maxRotation; // choose random number
-        float z = RandomBinomial() * maxRotation; // for x and z values
+        float angle = Random.Range(-maxRotation, maxRotation);
+        angle *= Mathf.Rad2Deg;
 
-        lookHere = new Vector3(x, 1.0f, z); // add them to a vector
+        lookHere = new Vector3(0, angle, 0);
 
-        transform.LookAt(lookHere); // and have object look at that point
+        // and have object look at that point
+
     }
 
     float RandomBinomial()
